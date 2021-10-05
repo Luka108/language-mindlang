@@ -1,0 +1,15 @@
+{
+  "name": "language-mindlang",
+  "version": "0.0.0",
+  "description": "A package to help developing mindustry logic algorithm",
+  "author": "Luca",
+  "license": "ISC",
+  "dependencies": {},
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Luka108/language-mindlang.git"
+  }
+}

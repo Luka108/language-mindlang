@@ -1,0 +1,13 @@
+name: 'MindLang'
+scopeName: 'mindlang'
+type: 'tree-sitter'
+parser: 'tree-sitter-mindlang'
+fileTypes: 'minl'
+comments:
+  start: '//'
+patterns:
+  {
+    'comment': 'keyword operators'
+    'match': '\\b(set|in|is|not|or|luca)\\b'
+    'name': 'keyword.operator.minl'
+  }
