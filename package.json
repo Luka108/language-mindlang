@@ -1,15 +1,10 @@
 {
-  "name": "mindlang",
+  "name": "language-mindlang",
   "version": "0.0.0",
   "description": "A package to help developing mindustry logic algorithm",
   "author": "Luca",
   "license": "ISC",
-  "dependencies": {
-    "nan": "^2.15.0"
-  },
-  "devDependencies": {
-    "tree-sitter-cli": "^0.20.0"
-  },
+  "dependencies": {},
   "engines": {
     "atom": ">0.50.0"
   },
