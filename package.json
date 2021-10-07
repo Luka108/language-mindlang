@@ -3,15 +3,9 @@
   "version": "0.0.0",
   "description": "A package to help developing mindustry logic algorithm",
   "engines": {
-    "atom": "*"
+    "atom": ">0.50.0"
   },
-  "dependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Luka108/language-mindlang.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Luka108/language-mindlang/issues"
-  },
-  "license": "MIT"
+  "repository": "https://github.com/Luka108/language-mindlang.git",
+  "license": "MIT",
+  "dependencies": {}
 }
