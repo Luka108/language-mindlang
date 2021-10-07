@@ -1,0 +1,1 @@
+A package to help developing mindustry logic algorithm

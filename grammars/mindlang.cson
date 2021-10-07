@@ -1,0 +1,113 @@
+'scopeName': 'source.mindlang'
+'name': 'MindLang'
+'fileTypes': ['minl']
+
+'patterns': [
+  {
+    'match': '\\b(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))\\b'
+    'name': 'constant.numeric.mindlang'
+  },
+  {
+    'begin': '"'
+    'end': '"'
+    'name': 'string.quoted.single.mindlang'
+  },
+  {
+    'begin': '\''
+    'end': '\''
+    'name': 'param.mindlang'
+  },
+  {
+    'match': '\\b(print|draw|write|read)\\b'
+    'name': 'keyword.memory.mindlang'
+  },
+  {
+    'match': '\\b(drawflush|printflush|getlink|control|radar|sensor)\\b'
+    'name': 'keyword.control.structure.mindlang'
+  },
+  {
+    'match': '\\b(set|op|lookup|wait)\\b'
+    'name': 'keyword.operator.mindlang'
+  },
+  {
+    'match': '\\b(add|sub|mul|div|idiv|mod|pow|equal|notEqual|land|lessThan|lessThanEq|greaterThan|greaterThanEq|
+                    strictEqual|shl|shr|or|and|xor|not|max|min|angle|len|noise|abs|log|log10|floor|ceil|sqrt|rand|
+                    sin|cos|tan|asin|acos|atan|always)\\b'
+    'name': 'mathoperator.mindlang'
+  },
+  {
+    'match': '\\b(end|jump|if)\\b'
+    'name': 'keyword.control.mindlang'
+  },
+  {
+    'match': '\\b(ubind|ucontrol|uradar|ulocate)\\b'
+    'comment': 'Keyword for unit control'
+    'name': 'keyword.control.unit.mindlang'
+  },
+  {
+    'match': '\\b(noop)\\b'
+    'name': 'noop.mindlang'
+  },
+  {
+    'match': '\\b(clear|color|stroke|line|rect|lineRect|poly|linePoly|triangle|image)\\b'
+    'name': 'display.mindlang'
+  },
+  {
+    'match': '\\b(enabled|shoot|shootp|config|color)\\b'
+    'name': 'control.mindlang'
+  },
+  {
+    'match': '\\b(any|enemy|ally|player|attacker|flying|boss|ground)\\b'
+    'name': 'radar.target.mindlang'
+  },
+  {
+    'match': '\\b(distance|health|shield|armor|maxHealth)\\b'
+    'name': 'radar.sort.mindlang'
+  },
+  {
+    'match': '\\B(@)(copper|lead|metaglass|graphite|sand|coal|titanium|thorium|scrap|silicon|plastanium|phase-fabric|
+                    |surge-alloy|spore-pod|blast-compound|pyratite|water|slag|oil|cryofluid)\\b'
+    'name': 'sensor.material.mindlang'
+  },
+  {
+    'match': '\\B(@)(totalItems|firstItem|totalLiquids|totalPower|itemCapacity|liquidCapacity|powerCapacity|powerNetStored|
+                      |powerNetCapacity|powerNetIn|powerNetOut|ammo|ammoCapacity|health|maxHealth|heat|efficiency|progress|
+                      |timescale|rotation|x|y|shootX|shootY|size|dead|range|shooting|boosting|mineX|mineY|mining|team|type|
+                      |flag|controlled|controller|name|payloadCount|payloadType|enabled|config)\\b'
+    'name': 'sensor.other.mindlang'
+  },
+  {
+    'match': '\\B(@)(commanded)\\b'
+    'name': 'deprecated.mindlang'
+  },
+  {
+    'match': '\\b(block|unit|item|liquid)\\b'
+    'name': 'lookup.mindlang'
+  },
+  {
+    'match': '\\B(@)(dagger|mace|fortress|scepter|reign|nova|pulsar|quasar|vela|corvus|crawler|atrax|spiroct|arkyid|toxopid|
+                      |flare|horizon|zenith|antumbra|eclipse|mono|poly|mega|quad|oct|risso|minke|bryde|sei|omura|retusa|oxynoe|
+                      |cyerce|aegires|navanax|alpha|beta|gamma)\\b'
+    'name': 'ubind.unit.mindlang'
+  },
+  {
+    'match': '\\b(idle|stop|move|approach|boost|pathfind|target|targetp|itemDrop|itemTake|payDrop|payTake|mine|flag|build|getBlock|within)\\b'
+    'name': 'ucontrol.mindlang'
+  },
+  {
+    'match': '\\b(ore|building|spawn|damaged)\\b'
+    'name': 'ulocate.mindlang'
+  },
+  {
+    'match': '\\b(core|storage|generator|turret|factory|repair|rally|battery|reactor)\\b'
+    'name': 'ulocate.building.mindlang'
+  },
+  {
+    'match': '\\b(true|false)\\b'
+    'name': 'keyword.boolean.mindlang'
+  },
+  {
+    'match': '#.+'
+    'name': 'comment.mindlang'
+  }
+]

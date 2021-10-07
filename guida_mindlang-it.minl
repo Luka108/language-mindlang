@@ -1,0 +1,405 @@
+# Guida per Mindustry - Build 131
+#----------------------------READ-----------------------------------------------
+# Legge un numero da una cella di memoria collegata
+
+# Esempio:
+read result cell1 0
+# result assume il valore contenuto all'indirizzo 0 di cell1
+
+# Parametri
+# result -> variabile sovrascritta
+# cell -> nome della cella da cui si vuole Leggere
+# addr[double] -> indirizzo nella cella di memoria
+read result cell addr
+
+#----------------------------WRITE----------------------------------------------
+# Scrive un numero in una cella di memoria collegata
+
+# Esempio:
+write result cell1 0
+# il valore result viene scritto all'indirizzo 0 della cella cell1
+
+# Parametri
+# result[double] -> il valore da scrivere
+# cell -> nome della cella da cui si vuole Leggere
+# addr[double] -> indirizzo nella cella di memoria
+write result cell addr
+
+#----------------------------DRAW-----------------------------------------------
+# Aggiunge un'operazione al buffer di disegno
+# Non mostra nulla finché non viene chiamata 'drawFlush'
+
+# Parametri
+# r[int 0..255] -> componente di rosso del colore
+# g[int 0..255] -> componente di verde del colore
+# b[int 0..255] -> componente di blu del colore
+# a[int 0..255] -> componente alfa (opacità) del colore (0 -> trasparente)
+# w[int] -> spessore
+# x,y,x2,... [ints] -> coordinate a partire dall'angolo in basso a sinistra del display
+# width[int] -> larghezza
+# height[int] -> altezza
+# sides[int] -> lati
+# radius[int] -> raggio del cerchio circoscritto
+# rotation[int] -> rotazione
+# image -> immagine da disegnare, come @copper, @dagger, @cryofluid e simili)
+# size[int] -> dimensione
+draw clear r g b                          # riempie il display con colore 'rgb(r,g,b)'
+draw color r g b a                        # imposta il colore 'argb(a,r,g,b)' per i prossimi disegni
+draw stroke w                             # imposta lo spessore 'w' dei tratti
+draw line x y x2 y2                       # disegna una linea da '(x,y)' a '(x2, y2)'
+draw rect x y width height                # disegna un rettangolo da '(x,y)' a '(x + width, y + height)'
+draw lineRect x y width height            # come 'rect' ma ne disegna solo il contorno
+draw poly x y sides radius rotation       # disegna un poligono in '(x,y)' di 'sides' lati, inscritto in un cerchio di raggio 'radius', ruotato di un angono 'rotation' [gradi]
+draw linePoly x y sides radius rotation   # come 'poly' ma ne disegna solo il contorno
+draw triangle x y x2 y2 x3 y3             # disegna un triangolo con i vertici in '(x,y)','(x2,y2)','(x3,y3)''
+draw image x y image size rotation        # disegna l'immagine 'image' di un contenuto (come @copper o @dagger) in '(x,y)' di dimensione 'size', ruotato di un ancgolo 'rotation' [gradi]
+
+#----------------------------PRINT----------------------------------------------
+# Aggiunge del testo al buffer di stampa
+# Non mostra nulla finché non viene chiamata 'printFlush'
+
+# Esempio:
+print "frog"
+# "frog" viene aggiunto al buffer di stampa
+
+# Parametri
+# stringa[string] -> la stringa da aggiungere al buffer
+print stringa
+
+#----------------------------DRAWFLUSH------------------------------------------
+# Mostra il contenuto del buffer di disegno sul Display Logico
+
+# Parametri
+# display -> nome del Display Logico su cui si vuole disegnare
+drawflush display
+
+#----------------------------PRINTFLUSH-----------------------------------------
+# Mostra il contenuto del buffer di stampa nel Messaggio
+
+# Parametri
+# message -> nome del Messaggio su cui si vuole stampare
+printflush message
+
+#----------------------------GETLINK--------------------------------------------
+# Restituisce il nome del componente collegato al processore di indice index
+
+# Parametri
+# result -> variabile sovrascritta
+# index[int] -> indice del collegamento (maggiore o uguale a zero)
+getlink result index
+
+#----------------------------CONTROL--------------------------------------------
+# Controlla una struttura
+
+# Parametri
+# what -> caratteristica da controllare
+# block1 -> struttura collegata da controllare
+# params[ints] -> dipendono da 'what' (vedi sotto)
+# r,g,b[ints] -> vedi 'draw'
+# x,y[ints] -> vedi 'draw'
+# shoot1[int] -> corrisponde a 'false' se vale 0, corrisponde a 'true' in tutti gli altri casi
+control what block1 params
+
+# Possibili usi
+control enabled block1 shoot1           # attiva block1 se 'shoot1' è true
+control shoot block1 x y shoot1         # spara alla posizione '(x,y)' se 'shoot1' è true
+control shootp block1 unit1 shoot1      # spara ad 'unit1' predicendone la velocità se 'shoot1' è true (per ottenere unit1, vedi 'ubind')
+control config block1 value             # configura la struttura 'block1' con il valore 'value' (ad esempio nel caso di Distributori)
+control color block1 r g b              # colora una struttura colorabile
+
+#----------------------------RADAR----------------------------------------------
+# Localizza unità nei pressi di una struttura con gittata
+
+# Parametri
+# target1~3 -> caratteristiche che deve avere l'unità localizzata (fa eccezione la combinazione 'any any any', che restituisce qualsiasi bersaglio)
+# sort -> caratteristica per ordinare i risultati
+# from -> struttura che farà da radar (la gittata del radar è la gittata di questa struttura)
+# order -> ordina i risultati in ordine inverso se vale zero
+# output -> variabile in cui viene scritto l'esito della ricerca
+radar target1 target2 target3 sort from order output
+
+# Possibili usi
+radar any any any distance turret1 1 result
+radar enemy any any health turret1 1 result
+radar ally any any shield turret1 1 result
+radar player any any armor turret1 1 result
+radar attacker any any maxHealth turret1 1 result
+radar flying any any distance turret1 1 result
+radar boss any any distance turret1 1 result
+radar ground any any distance turret1 1 result
+
+#----------------------------SENSOR---------------------------------------------
+# Ottieni informazioni da una struttura od una unità
+
+# Parametri
+# result -> variabile che verrà sovrascritta
+# in -> struttura o unità da cui si vuole ottenere l'informazione
+# what -> tipo di informazione da ottenere
+sensor result in what
+
+# Possibili usi
+sensor result block1 @copper            # Se viene indicata una risorsa, restituisce quanto di essa è contenuto nella struttura o unità
+sensor result block1 @lead
+sensor result block1 @metaglass
+sensor result block1 @graphite
+sensor result block1 @sand
+sensor result block1 @coal
+sensor result block1 @titanium
+sensor result block1 @thorium
+sensor result block1 @scrap
+sensor result block1 @silicon
+sensor result block1 @plastanium
+sensor result block1 @phase-fabric
+sensor result block1 @surge-alloy
+sensor result block1 @spore-pod
+sensor result block1 @blast-compound
+sensor result block1 @pyratite
+sensor result block1 @water
+sensor result block1 @slag
+sensor result block1 @oil
+sensor result block1 @cryofluid
+sensor result block1 @totalItems
+sensor result block1 @firstItem
+sensor result block1 @totalLiquids
+sensor result block1 @totalPower
+sensor result block1 @itemCapacity
+sensor result block1 @liquidCapacity
+sensor result block1 @powerCapacity
+sensor result block1 @powerNetStored
+sensor result block1 @powerNetCapacity
+sensor result block1 @powerNetIn
+sensor result block1 @powerNetOut
+sensor result block1 @ammo
+sensor result block1 @ammoCapacity
+sensor result block1 @health
+sensor result block1 @maxHealth
+sensor result block1 @heat
+sensor result block1 @efficiency
+sensor result block1 @progress              # restituisce un valore da 0 a 1, come ad esempio la produzione di risorse, la ricarica di una torretta o la percentuale di costruzione di una struttura
+sensor result block1 @timescale
+sensor result block1 @rotation
+sensor result block1 @x
+sensor result block1 @y
+sensor result block1 @shootX
+sensor result block1 @shootY
+sensor result block1 @size
+sensor result block1 @dead                  # restituisce zero se la struttura o unità non è più disponibile o è morta, 1 altrimenti
+sensor result block1 @range
+sensor result block1 @shooting
+sensor result block1 @boosting
+sensor result block1 @mineX
+sensor result block1 @mineY
+sensor result block1 @mining
+sensor result block1 @team
+sensor result block1 @type                  # restituisce il tipo di struttura o unità (ad esempio per un Distributore restituirà '@router', non una stringa)
+sensor result block1 @flag                  # restituisce il valore numerico del flag di un'unità (vedi 'ucontrol flag')
+sensor result block1 @controlled            # restituisce '@ctrlProcessor' se l'unità è controllata dal Processore, '@ctrlPlayer' se è controllata dal giocatore, '@ctrlFormation' se è in formazione, 0 altrimenti
+sensor result block1 @controller            # se è controllata dal processore restituisce il processore, se è in formazione restituisce il leader, altrimenti restituisce l'unità stessa
+sensor result block1 @commanded             # deprecato, usare '@controlled'
+sensor result block1 @name
+sensor result block1 @payloadCount
+sensor result block1 @payloadType
+sensor result block1 @enabled               # restituisce 1 se il blocco è attivo, 0 altrimenti
+sensor result block1 @config                # restituisce la configurazione, ad esempio per un Distributore (vedi 'control config')
+
+#----------------------------SET------------------------------------------------
+# Imposta il valore di una variabile
+
+# Paramteri
+# result -> variabile da sovrascrivere
+# value -> valore da assegnare a 'result'
+set result value
+
+#----------------------------OP-------------------------------------------------
+# Esegue un'operazione tra due variabili
+
+# Parametri
+# operator -> tipo di operazione
+# result -> variabile che conterrà il risultato dell'operazione
+# a,b -> variabili su cui viene eseguita l'operazione 'operator'
+op operator result a b
+
+op add result a b             # somma
+op sub result a b             # differenza
+op mul result a b             # moltiplicazione
+op div result a b             # divisione
+op idiv result a b            # divisione intera
+op mod result a b             # modulo
+op pow result a b             # elevazione a potenza
+op equal result a b           # uguale (Oggetti non-nulli comparati con numeri valgono 1, 0 se nulli)
+op notEqual result a b        # non uguale
+op land result a b            # and logico
+op lessThan result a b        # minore
+op lessThanEq result a b      # minore o uguale
+op greaterThan result a b     # maggiore
+op greaterThanEq result a b   # maggiore o uguale
+op strictEqual result a b     # strettamente uguale (utile per controllare la nullità di una variabile)
+op shl result a b             # bit-shift a sinistra
+op shr result a b             # bit-shift a destra
+op or result a b              # or bit a bit
+op and result a b             # and bit a bit
+op xor result a b             # xor bit a bit
+op not result a               # inversione bit a bit
+op max result a b             # massimo tra a e b
+op min result a b             # minimo tra a e b
+op angle result a b           # angolo del vettore [a, b]
+op len result a b             # modulo del vettore [a, b]
+op noise result a b           # rumore simplex 2D
+op abs result a               # valore assoluto
+op log result a               # logaritmo naturale
+op log10 result a             # logaritmo in base 10
+op floor result a             # parte intera
+op ceil result a              # parte intera +1
+op sqrt result a              # radice quadrata
+op rand result a              # valore casuale tra 0 e 'a'
+op sin result a               # seno di 'a' [gradi]
+op cos result a               # coseno di 'a' [gradi]
+op tan result a               # tangente di 'a' [gradi]
+op asin result a              # arcoseno di 'a' in gradi
+op acos result a              # arcocoseno di 'a' in gradi
+op atan result a              # arcotangente di 'a' in gradi
+
+#----------------------------WAIT-----------------------------------------------
+# Aspetta un certo numero di secondi
+
+# Paramteri
+# sec[double] -> numero di secondi da attendere
+wait sec
+
+#----------------------------LOOKUP---------------------------------------------
+# Restituisce il nome di un blocco/unità/oggetto/liquido corrispondente all'ID
+
+# Paramteri
+# type -> Tipo di entità
+# result -> variabile in cui scrivere il risultato
+# id[int] -> identificativo di cui si vuole conoscere il nome (maggiore o uguale a zero)
+lookup type result id
+
+# Possibili usi
+lookup block result id
+lookup unit result id
+lookup item result id
+lookup liquid result id
+
+#----------------------------END------------------------------------------------
+# Salta alla prima istruzione della pila
+end
+
+#----------------------------JUMP-----------------------------------------------
+# Salta ad un'altra istruzione se la condizione è verificata
+
+# Esempio
+jump 18 notEqual x false
+# Salta alla diciannovesima istruzione se x è vera (ovvero se non vale 0)
+
+# Parametri
+# dest[int] -> riga da raggiungere se la condizione è vera (-1 se senza destinazione, 0 per la prima istruzione)
+# operator -> operatore di confronto (vedi 'op') - se vale 'always' la condizione è sempre verificata
+# a,b -> variabili da confrontare
+jump dest operator a b
+
+#----------------------------UBIND----------------------------------------------
+# Si associa all'unità più vicina del tipo specificato, e la memorizza in '@unit'
+
+# Parametri
+# type -> tipo di unità
+ubind type
+
+# Possibili usi
+ubind @dagger
+ubind @mace
+ubind @fortress
+ubind @scepter
+ubind @reign
+ubind @nova
+ubind @pulsar
+ubind @quasar
+ubind @vela
+ubind @corvus
+ubind @crawler
+ubind @atrax
+ubind @spiroct
+ubind @arkyid
+ubind @toxopid
+ubind @flare
+ubind @horizon
+ubind @zenith
+ubind @antumbra
+ubind @eclipse
+ubind @mono
+ubind @poly
+ubind @mega
+ubind @quad
+ubind @oct
+ubind @risso
+ubind @minke
+ubind @bryde
+ubind @sei
+ubind @omura
+ubind @retusa
+ubind @oxynoe
+ubind @cyerce
+ubind @aegires
+ubind @navanax
+ubind @alpha
+ubind @beta
+ubind @gamma
+
+#----------------------------UCONTROL-------------------------------------------
+# Controlla l'unità attualmente associata
+
+# Paramteri
+# cmd -> il comando da impartire all'unità
+# params[ints] -> dipendono dal comando
+# x,y[ints] -> vedi 'draw'
+# shoot1[int] -> se vale zero l'unità non spara, in tutti gli altri casi sì
+ucontrol cmd params
+
+ucontrol idle                                   # continua a fare ciò che sta facendo
+ucontrol stop                                   # interrompe qualsiasi cosa stia facendo
+ucontrol move x y                               # si muove alla posizione '(x,y)'
+ucontrol approach x y radius                    # si avvicina ad una certa posizione mantenendo una distanza 'radius'
+ucontrol boost enable                           # attiva o meno lo sprint
+ucontrol pathfind                               # cerca un percorso verso lo spawn nemico
+ucontrol target x y shoot1                      # spara alla posizione '(x,y)' se è nella sua gittata
+ucontrol targetp unit1 shoot1                   # spara a 'unit1' predicendo la velocitò
+ucontrol itemDrop to amount                     # lascia un oggetto in quantità 'amount' alla struttura 'to'
+ucontrol itemTake from item1 amount             # prende l'oggetto 'item1' dalla struttura 'from' in quantità 'amount'
+ucontrol payDrop                                # rilascia il carico attuale
+ucontrol payTake takeUnits                      # prende il carico nella posizione in cui si trova
+ucontrol mine x y                               # mina alla posizione '(x,y)'
+ucontrol flag value                             # assegna il flag 'value'
+ucontrol build x y block1 rotation config1      # costruisce la struttura 'block1' in configurazione 'config1' alla posizione '(x,y)'
+ucontrol getBlock x y type building1            # non saprei
+ucontrol within x y radius result               # controlla se l'unità è vicina ad una certa posizione
+
+#----------------------------URADAR---------------------------------------------
+# Localizza unità nei pressi dell'unità associata
+# Vedi 'radar'
+radar target1 target2 target3 sort order output
+
+#----------------------------ULOCATE--------------------------------------------
+#Localizza una specifica struttura/posizione sulla mappa - necessita di un'unità associata
+
+# Parametri
+# what -> cosa si sta cercando
+# type -> tipo di struttura (se 'what' è 'building')
+# enemy1 -> 1 se è una struttura nemica, 0 altrimenti
+# resource -> risorsa da cercare (se 'what' è 'ore')
+# outx,outy -> variabili che conterranno le coordinate dell'obiettivo trovato
+# found -> variabile che varrà 1 se la struttura viene trovata, 0 altrimenti
+# building -> tipo di struttura trovata
+ulocate what type enemy1 resource outx outy found building1
+
+ulocate ore core true resource outx outy found building1                # cerca una miniera di 'resource'
+ulocate building core enemy1 @copper outx outy found building1          # cerca il nucleo nemico se 'enemy1' vale 1, altrimenti amico
+ulocate building storage enemy1 @copper outx outy found building1       # cerca strutture di deposito
+ulocate building generator enemy1 @copper outx outy found building1     # cerca generatori di energia
+ulocate building turret enemy1 @copper outx outy found building1        # cerca torrette
+ulocate building factory enemy1 @copper outx outy found building1       # cerca fabbriche che trasformano risorse
+ulocate building repair enemy1 @copper outx outy found building1        # cerca punti di riparazione
+ulocate building rally enemy1 @copper outx outy found building1         # cerca il centro di comando
+ulocate building battery enemy1 @copper outx outy found building1       # cerca le batterie
+ulocate building reactor enemy1 @copper outx outy found building1       # cerca i reattori al torio o ad impatto
+ulocate spawn core true @copper outx outy found building1               # cerca lo spawn nemico (potrebbe essere il nucleo o una posizione)
+ulocate damaged core true @copper outx outy found building1             # cerca le strutture alleate danneggiate
