@@ -1,0 +1,406 @@
+# Guide for Mindustry - Build 131
+#----------------------------READ-----------------------------------------------
+# Read a number from a linked memory cell
+
+# Example:
+read result cell1 0
+# result assume the value at address 0 of cell1
+
+# Parameters
+# result -> variable to overwrite
+# cell -> cell name from which you want to read
+# addr[double] -> address in cell1
+read result cell addr
+
+#----------------------------WRITE----------------------------------------------
+# Write a number from a linked memory cell
+
+# Example:
+write result cell1 0
+# the value result will be written at address 0 of cell1
+
+# Parameters
+# result[double] -> the value to write
+# cell -> cell name in which you want to write
+# addr[double] -> address in cell1
+write result cell addr
+
+#----------------------------DRAW-----------------------------------------------
+# Add an operation to the drawing buffer
+# Does not display anything until 'drawflush' is used
+
+# Parameters
+# r[int 0..255] -> color's red component
+# g[int 0..255] -> color's green component
+# b[int 0..255] -> color's blue component
+# a[int 0..255] -> color's alpha (opacity) component (0 -> transparent)
+# w[int] -> thickness
+# x,y,x2,... [ints] -> coordinates from bottom-left display angle
+# width[int] -> width
+# height[int] -> height
+# sides[int] -> sides
+# radius[int] -> circumscribed circle's radius
+# rotation[int] -> rotation
+# image -> immage to draw, like @copper, @dagger, @cryofluid and similar)
+# size[int] -> size
+draw clear r g b                          # fill a display with the color 'rgb(r,g,b)'
+draw color r g b a                        # set the color 'argb(a,r,g,b)' for next drawings operations
+draw stroke w                             # set line width to 'w'
+draw line x y x2 y2                       # draw line segment fomr '(x,y)' to '(x2, y2)'
+draw rect x y width height                # fill a rectangle from '(x,y)' to '(x + width, y + height)'
+draw lineRect x y width height            # draw a rectangle outline
+draw poly x y sides radius rotation       # fill a regular polygon at '(x,y)' of 'sides' sides, inscribed in a circle of 'radius' radius, rotate with an angle of 'rotation' [degrees]
+draw linePoly x y sides radius rotation   # draw a regular polygon outline
+draw triangle x y x2 y2 x3 y3             # fill a triangle with vetex at '(x,y)','(x2,y2)','(x3,y3)''
+draw image x y image size rotation        # draw an image of some content in '(x,y)' with size 'size', rotate with an angle of 'rotation' [degrees]
+
+#----------------------------PRINT----------------------------------------------
+# Add text to the print buffer
+# Does not display anything until 'printflush' is used
+
+# Example:
+print "frog"
+# "frog" is added to the print buffer
+
+# Parameters
+# text[string] -> the text to add to the buffer
+print text
+
+#----------------------------DRAWFLUSH------------------------------------------
+# Flush queued 'draw' operation to a display
+
+# Parameters
+# display -> Display name in which you want to flush
+drawflush display
+
+#----------------------------PRINTFLUSH-----------------------------------------
+# Flush queued 'print' operations to a message block
+
+# Parameters
+# message -> Message name in which you want to flush
+printflush message
+
+#----------------------------GETLINK--------------------------------------------
+# Get a processor link by index. Starts at 0
+
+# Parameters
+# result -> variable to overwrite
+# index[int] -> link index (grater or equal than zero)
+getlink result index
+
+#----------------------------CONTROL--------------------------------------------
+# Control a building
+
+# Parameters
+# what -> parameter to control
+# block1 -> linked building to control
+# params[ints] -> depend on 'what' (check below)
+# r,g,b[ints] -> check 'draw'
+# x,y[ints] -> check 'draw'
+# shoot1[int] -> represents 'false' when it's zero, 'true' otherwise
+control what block1 params
+
+# Possible uses
+control enabled block1 shoot1           # enable block1 if 'shoot1' is true
+control shoot block1 x y shoot1         # shoot at position '(x,y)' if 'shoot1' is true
+control shootp block1 unit1 shoot1      # shoot to 'unit1' with velocity prediction if 'shoot1' is true (to obtain 'block1' link a turret or check 'ubind', to obtain 'unit1' check 'radar' or 'uradar')
+control config block1 value             # edit building configuration 'block1' with the value 'value' (e.g. sorter items)
+control color block1 r g b              # illuminator color
+
+#----------------------------RADAR----------------------------------------------
+# Locate units around a building with range
+
+# Parameters
+# target1~3 -> properties that a target must have to be valid (as exception 'any any any', matches any block or unit at all)
+# sort -> metric to sort results by
+# from -> Building to sense from (Sensor range is limited by building range)
+# order -> sorting order, 0 to reverse
+# output -> variable to write output unit to
+radar target1 target2 target3 sort from order output
+
+# Possible uses
+radar any any any distance turret1 1 result
+radar enemy any any health turret1 1 result
+radar ally any any shield turret1 1 result
+radar player any any armor turret1 1 result
+radar attacker any any maxHealth turret1 1 result
+radar flying any any distance turret1 1 result
+radar boss any any distance turret1 1 result
+radar ground any any distance turret1 1 result
+
+#----------------------------SENSOR---------------------------------------------
+# Get data from a building or unit
+
+# Parameters
+# result -> variable to overwrite
+# in -> building/unit from which you want data
+# what -> kind of data
+sensor result in what
+
+# Possible uses
+sensor result block1 @copper            # If you put a resource, it gets how much of it is in 'block1'
+sensor result block1 @lead
+sensor result block1 @metaglass
+sensor result block1 @graphite
+sensor result block1 @sand
+sensor result block1 @coal
+sensor result block1 @titanium
+sensor result block1 @thorium
+sensor result block1 @scrap
+sensor result block1 @silicon
+sensor result block1 @plastanium
+sensor result block1 @phase-fabric
+sensor result block1 @surge-alloy
+sensor result block1 @spore-pod
+sensor result block1 @blast-compound
+sensor result block1 @pyratite
+sensor result block1 @water
+sensor result block1 @slag
+sensor result block1 @oil
+sensor result block1 @cryofluid
+sensor result block1 @totalItems
+sensor result block1 @firstItem
+sensor result block1 @totalLiquids
+sensor result block1 @totalPower
+sensor result block1 @itemCapacity
+sensor result block1 @liquidCapacity
+sensor result block1 @powerCapacity
+sensor result block1 @powerNetStored
+sensor result block1 @powerNetCapacity
+sensor result block1 @powerNetIn
+sensor result block1 @powerNetOut
+sensor result block1 @ammo
+sensor result block1 @ammoCapacity
+sensor result block1 @health
+sensor result block1 @maxHealth
+sensor result block1 @heat
+sensor result block1 @efficiency
+sensor result block1 @progress              # Action progresso, 0 to 1. Returns production, turret reload or costruction progress
+sensor result block1 @timescale
+sensor result block1 @rotation
+sensor result block1 @x
+sensor result block1 @y
+sensor result block1 @shootX
+sensor result block1 @shootY
+sensor result block1 @size
+sensor result block1 @dead                  # Whether a unit/building is dead or no longer valid
+sensor result block1 @range
+sensor result block1 @shooting
+sensor result block1 @boosting
+sensor result block1 @mineX
+sensor result block1 @mineY
+sensor result block1 @mining
+sensor result block1 @team
+sensor result block1 @type                  # Type of building/unit (e.g. for any Router, this will return @router not a string)
+sensor result block1 @flag                  # Numeric unit flag (check 'ucontrol flag')
+sensor result block1 @controlled            # returns '@ctrlProcessor' if unit controller is processor, '@ctrlPlayer' if unit/building controller is player, '@ctrlFormation' if unit is in formation, 0 otherwise
+sensor result block1 @controller            # unit controller. If processor controlled, returns processor, if in a formation, returns the leadr, the unit itself otherwise
+sensor result block1 @commanded             # deprecated, use 'controlled' instead
+sensor result block1 @name
+sensor result block1 @payloadCount
+sensor result block1 @payloadType
+sensor result block1 @enabled               # whather the block is enabled
+sensor result block1 @config                # building configuration (check 'control config')
+
+#----------------------------SET------------------------------------------------
+# Set a variable
+
+# Parameters
+# result -> variable to overwrite
+# value -> value to assign to 'result'
+set result value
+
+#----------------------------OP-------------------------------------------------
+# Performs an operation on 1-2 variables
+
+# Parameters
+# operator -> operation to perform
+# result -> variable with the output
+# a,b -> variables on which the operation 'operator' will be performed
+op operator result a b
+
+op add result a b             # sum
+op sub result a b             # subtraction
+op mul result a b             # multiplication
+op div result a b             # division (null if b==0)
+op idiv result a b            # integer division
+op mod result a b             # modulo
+op pow result a b             # power elevation
+op equal result a b           # equal, coerces types (non-null objects compared with numbers become 1, otherwise 0)
+op notEqual result a b        # not equal, coerces types
+op land result a b            # logical and
+op lessThan result a b        # lower
+op lessThanEq result a b      # lower or equal
+op greaterThan result a b     # greater
+op greaterThanEq result a b   # greater or equal
+op strictEqual result a b     # strict equality, does not coerce types (can be used to check for null)
+op shl result a b             # bit-shift left
+op shr result a b             # bit-shift right
+op or result a b              # bitwise or
+op and result a b             # bitwise and
+op xor result a b             # bitwise xor
+op not result a               # bitwise flip
+op max result a b             # maximum of a and b
+op min result a b             # minimum of a and b
+op angle result a b           # angle of vector [a, b] in degrees
+op len result a b             # magnitude of vector [a, b]
+op noise result a b           # 2D simplex noise
+op abs result a               # absolute value
+op log result a               # natural logarithm (ln)
+op log10 result a             # base 10 logarithm
+op floor result a             # whole part
+op ceil result a              # whole part +1
+op sqrt result a              # square root
+op rand result a              # random decimal in 0 and 'a'
+op sin result a               # sine of 'a' [degrees]
+op cos result a               # cosine of 'a' [degrees]
+op tan result a               # tangent of 'a' [degrees]
+op asin result a              # arc sine of 'a' in degrees
+op acos result a              # arc cosine of 'a' in degrees
+op atan result a              # arc tangent of 'a' in degrees
+
+#----------------------------WAIT-----------------------------------------------
+# Wait a certain number of seconds
+
+# Parameters
+# sec[double] -> seconds to wait
+wait sec
+
+#----------------------------LOOKUP---------------------------------------------
+# Look up an item/liquid/unit/block type by ID
+
+# Parameters
+# type -> entity type
+# result -> variable with the output
+# id[int] -> ID of entity (greater or equal than zero)
+lookup type result id
+
+# Possible uses
+lookup block result id
+lookup unit result id
+lookup item result id
+lookup liquid result id
+
+#----------------------------END------------------------------------------------
+# Jump to the top of the instruction stack
+end
+
+#----------------------------JUMP-----------------------------------------------
+# Conditionally jump to another statement
+
+# Example
+jump 18 notEqual x false
+# Jumps to nineteenth line if x is true (that is not zero)
+
+# Parameters
+# dest[int] -> line to reach if condition is true (-1 if without destionation, 0 for the first instruction)
+# operator -> comparison operator (check 'op') - if it's 'always' condition is always true
+# a,b -> variables to compare
+jump dest operator a b
+
+#----------------------------UBIND----------------------------------------------
+# Bind to the next unit of a type, and store it in @unit
+
+# Parameters
+# type -> unit type
+ubind type
+
+# Possible uses
+ubind @dagger
+ubind @mace
+ubind @fortress
+ubind @scepter
+ubind @reign
+ubind @nova
+ubind @pulsar
+ubind @quasar
+ubind @vela
+ubind @corvus
+ubind @crawler
+ubind @atrax
+ubind @spiroct
+ubind @arkyid
+ubind @toxopid
+ubind @flare
+ubind @horizon
+ubind @zenith
+ubind @antumbra
+ubind @eclipse
+ubind @mono
+ubind @poly
+ubind @mega
+ubind @quad
+ubind @oct
+ubind @risso
+ubind @minke
+ubind @bryde
+ubind @sei
+ubind @omura
+ubind @retusa
+ubind @oxynoe
+ubind @cyerce
+ubind @aegires
+ubind @navanax
+ubind @alpha
+ubind @beta
+ubind @gamma
+
+#----------------------------UCONTROL-------------------------------------------
+# Controll the currently bound unit
+
+# Parameters
+# cmd -> command to execute
+# params[ints] -> depends on 'cmd'
+# x,y[ints] -> check 'draw'
+# shoot1[int] -> if it's zero the unit does not shoot, it shoots otherwise
+ucontrol cmd params
+
+ucontrol idle                                   # Don't move, but keep building/mining. The default state
+ucontrol stop                                   # stop moving/mining/building
+ucontrol move x y                               # move to exact position '(x,y)'
+ucontrol approach x y radius                    # approach a position with radius 'radius'
+ucontrol boost enable                           # start/stop boosting
+ucontrol pathfind                               # pathfind to the enemy spawn
+ucontrol target x y shoot1                      # shoot at position '(x,y)' if in range
+ucontrol targetp unit1 shoot1                   # shoot to 'unit1' with velocity prediction
+ucontrol itemDrop to amount                     # drop an item to the entity 'to'
+ucontrol itemTake from item1 amount             # take the item 'item1'from the structure 'from'
+ucontrol payDrop                                # drop current payload
+ucontrol payTake takeUnits                      # pick up payload at current location
+ucontrol mine x y                               # mine at position '(x,y)'
+ucontrol flag value                             # numeric unit flag
+ucontrol build x y block1 rotation config1      # build a structure at position '(x,y)'
+ucontrol getBlock x y type building1            # fetch a building and type at coordinates. Unit must be in range of position. Solid non-buildings will have the type '@solid'
+ucontrol within x y radius result               # Check if unit is near at position
+
+#----------------------------URADAR---------------------------------------------
+# Locate units around the currently bound unit
+
+# Check 'radar'
+radar target1 target2 target3 sort order output
+
+#----------------------------ULOCATE--------------------------------------------
+# Locate a specific type of position/building anywhere on the map - requires a bound unit
+
+# Parameters
+# what -> what you're searching for
+# type -> structure type (if 'what' is 'building')
+# enemy1 -> 1 if it's an enemy structure, 0 otherwise
+# resource -> resource to search for (if 'what' is 'ore')
+# outx,outy -> variables with the output coordinates
+# found -> variables that will be 1 if the structure has been found, 0 otherwise
+# building -> variable to store located building
+ulocate what type enemy1 resource outx outy found building1
+
+ulocate ore core true resource outx outy found building1                # search for a ore deposit
+ulocate building core enemy1 @copper outx outy found building1          # search for the enemy core if 'enemy1' is 1, ally otherwise
+ulocate building storage enemy1 @copper outx outy found building1       # search for storage building
+ulocate building generator enemy1 @copper outx outy found building1     # search for buildings that generate power
+ulocate building turret enemy1 @copper outx outy found building1        # search for any turret
+ulocate building factory enemy1 @copper outx outy found building1       # search for buildings that transform resources
+ulocate building repair enemy1 @copper outx outy found building1        # search for repair points
+ulocate building rally enemy1 @copper outx outy found building1         # search for command center
+ulocate building battery enemy1 @copper outx outy found building1       # search for any battery
+ulocate building reactor enemy1 @copper outx outy found building1       # search for impact/thorium reactor
+ulocate spawn core true @copper outx outy found building1               # search for enemy spawn point (may be a core or a position)
+ulocate damaged core true @copper outx outy found building1             # search for damaged ally building

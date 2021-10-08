@@ -103,7 +103,7 @@ control what block1 params
 # Possibili usi
 control enabled block1 shoot1           # attiva block1 se 'shoot1' è true
 control shoot block1 x y shoot1         # spara alla posizione '(x,y)' se 'shoot1' è true
-control shootp block1 unit1 shoot1      # spara ad 'unit1' predicendone la velocità se 'shoot1' è true (per ottenere unit1, vedi 'ubind')
+control shootp block1 unit1 shoot1      # spara ad 'unit1' predicendone la velocità se 'shoot1' è true (per ottenere 'block1' collega una torretta o vedi 'ubind', per ottenere 'unit1' vedi 'radar' o 'uradar')
 control config block1 value             # configura la struttura 'block1' con il valore 'value' (ad esempio nel caso di Distributori)
 control color block1 r g b              # colora una struttura colorabile
 
@@ -205,13 +205,13 @@ sensor result block1 @config                # restituisce la configurazione, ad 
 #----------------------------SET------------------------------------------------
 # Imposta il valore di una variabile
 
-# Paramteri
+# Parametri
 # result -> variabile da sovrascrivere
 # value -> valore da assegnare a 'result'
 set result value
 
 #----------------------------OP-------------------------------------------------
-# Esegue un'operazione tra due variabili
+# Esegue un'operazione tra una o due variabili
 
 # Parametri
 # operator -> tipo di operazione
@@ -242,7 +242,7 @@ op xor result a b             # xor bit a bit
 op not result a               # inversione bit a bit
 op max result a b             # massimo tra a e b
 op min result a b             # minimo tra a e b
-op angle result a b           # angolo del vettore [a, b]
+op angle result a b           # angolo del vettore [a, b] in gradi
 op len result a b             # modulo del vettore [a, b]
 op noise result a b           # rumore simplex 2D
 op abs result a               # valore assoluto
@@ -262,14 +262,14 @@ op atan result a              # arcotangente di 'a' in gradi
 #----------------------------WAIT-----------------------------------------------
 # Aspetta un certo numero di secondi
 
-# Paramteri
+# Parametri
 # sec[double] -> numero di secondi da attendere
 wait sec
 
 #----------------------------LOOKUP---------------------------------------------
 # Restituisce il nome di un blocco/unità/oggetto/liquido corrispondente all'ID
 
-# Paramteri
+# Parametri
 # type -> Tipo di entità
 # result -> variabile in cui scrivere il risultato
 # id[int] -> identificativo di cui si vuole conoscere il nome (maggiore o uguale a zero)
@@ -348,7 +348,7 @@ ubind @gamma
 #----------------------------UCONTROL-------------------------------------------
 # Controlla l'unità attualmente associata
 
-# Paramteri
+# Parametri
 # cmd -> il comando da impartire all'unità
 # params[ints] -> dipendono dal comando
 # x,y[ints] -> vedi 'draw'
@@ -370,16 +370,17 @@ ucontrol payTake takeUnits                      # prende il carico nella posizio
 ucontrol mine x y                               # mina alla posizione '(x,y)'
 ucontrol flag value                             # assegna il flag 'value'
 ucontrol build x y block1 rotation config1      # costruisce la struttura 'block1' in configurazione 'config1' alla posizione '(x,y)'
-ucontrol getBlock x y type building1            # non saprei
+ucontrol getBlock x y type building1            # fetch a building and type at coordinates. Unit must be in range of position. Solid non-buildings will have the type '@solid'
 ucontrol within x y radius result               # controlla se l'unità è vicina ad una certa posizione
 
 #----------------------------URADAR---------------------------------------------
 # Localizza unità nei pressi dell'unità associata
+
 # Vedi 'radar'
 radar target1 target2 target3 sort order output
 
 #----------------------------ULOCATE--------------------------------------------
-#Localizza una specifica struttura/posizione sulla mappa - necessita di un'unità associata
+# Localizza una specifica struttura/posizione sulla mappa - necessita di un'unità associata
 
 # Parametri
 # what -> cosa si sta cercando

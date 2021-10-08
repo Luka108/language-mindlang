@@ -107,6 +107,10 @@
     'name': 'keyword.boolean.mindlang'
   },
   {
+    'match': '\\B(@)(ctrlProcessor|ctrlPlayer|ctrlFormation)\\b'
+    'name': 'ctrl.mindlang'
+  },
+  {
     'match': '#.+'
     'name': 'comment.mindlang'
   }
