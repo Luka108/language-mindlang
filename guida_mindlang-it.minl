@@ -63,8 +63,8 @@ print "frog"
 # "frog" viene aggiunto al buffer di stampa
 
 # Parametri
-# stringa[string] -> la stringa da aggiungere al buffer
-print stringa
+# testo -> il testo da aggiungere al buffer
+print testo
 
 #----------------------------DRAWFLUSH------------------------------------------
 # Mostra il contenuto del buffer di disegno sul Display Logico
