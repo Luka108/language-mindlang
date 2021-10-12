@@ -4,10 +4,6 @@
 
 'patterns': [
   {
-    'match': '\\b(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))\\b'
-    'name': 'constant.numeric.mindlang'
-  },
-  {
     'begin': '"'
     'end': '"'
     'name': 'string.quoted.single.mindlang'
@@ -18,26 +14,119 @@
     'name': 'param.mindlang'
   },
   {
+    'match': '\\b(draw) (clear|color|stroke|line|rect|lineRect|poly|linePoly|triangle|image)\\b'
+    'captures':
+      '1':
+        'name': 'keyword.memory.mindlang'
+      '2':
+        'name': 'display.mindlang'
+    'name': 'meta.draw.mindlang'
+  },
+  {
     'match': '\\b(print|draw|write|read)\\b'
     'name': 'keyword.memory.mindlang'
+  },
+  {
+    'match': '\\b(control) (enabled|shoot|shootp|config|color)\\b'
+    'captures':
+      '1':
+        'name': 'keyword.control.structure.mindlang'
+      '2':
+        'name': 'control.mindlang'
+    'name': 'meta.control.mindlang'
+  },
+  {
+    'match': '\\b(radar) (any|enemy|ally|player|attacker|flying|boss|ground)
+    (any|enemy|ally|player|attacker|flying|boss|ground)
+    (any|enemy|ally|player|attacker|flying|boss|ground) (distance|health|shield|armor|maxHealth)\\b'
+    'captures':
+      '1':
+        'name': 'keyword.control.structure.mindlang'
+      '2':
+        'name': 'radar.target.mindlang'
+      '3':
+        'name': 'radar.target.mindlang'
+      '4':
+        'name': 'radar.target.mindlang'
+      '5':
+        'name': 'radar.sort.mindlang'
+    'name': 'meta.radar.mindlang'
   },
   {
     'match': '\\b(drawflush|printflush|getlink|control|radar|sensor)\\b'
     'name': 'keyword.control.structure.mindlang'
   },
   {
-    'match': '\\b(set|op|lookup|wait)\\b'
+    'match': '\\b(op) (add|sub|mul|div|idiv|mod|pow|equal|notEqual|land|lessThan|lessThanEq|greaterThan|greaterThanEq|
+                    |strictEqual|shl|shr|or|and|xor|not|max|min|angle|len|noise|abs|log|log10|floor|ceil|sqrt|rand|
+                    |sin|cos|tan|asin|acos|atan)\\b'
+    'captures':
+      '1':
+        'name': 'keyword.operator.mindlang'
+      '2':
+        'name': 'mathoperator.mindlang'
+    'name': 'meta.op.mindlang'
+  },
+  {
+    'match': '\\b(lookup) (block|unit|item|liquid)\\b'
+    'captures':
+      '1':
+        'name': 'keyword.operator.mindlang'
+      '2':
+        'name': 'lookup.mindlang'
+    'name': 'meta.keyword.operator.mindlang'
+  },
+  {
+    'match': '\\b(set|wait|op|lookup)\\b'
     'name': 'keyword.operator.mindlang'
   },
   {
-    'match': '\\b(add|sub|mul|div|idiv|mod|pow|equal|notEqual|land|lessThan|lessThanEq|greaterThan|greaterThanEq|
-                    strictEqual|shl|shr|or|and|xor|not|max|min|angle|len|noise|abs|log|log10|floor|ceil|sqrt|rand|
-                    sin|cos|tan|asin|acos|atan|always)\\b'
-    'name': 'mathoperator.mindlang'
+    'match': '\\b(jump) ([0-9]+) (equal|notEqual|lessThan|lessThanEq|greaterThan|greaterThanEq|strictEqual|always)\\b'
+    'captures':
+      '1':
+        'name': 'keyword.control.mindlang'
+      '2':
+        'name': 'constant.numeric.mindlang'
+      '3':
+        'name': 'mathoperator.mindlang'
+    'name': 'meta.jump.mindlang'
   },
   {
-    'match': '\\b(end|jump|if)\\b'
+    'match': '\\b(end|jump)\\b'
     'name': 'keyword.control.mindlang'
+  },
+  {
+    'match': '\\b(ubind) \\B(@)(dagger|mace|fortress|scepter|reign|nova|pulsar|quasar|vela|corvus|crawler|atrax|spiroct|arkyid|toxopid|
+                      |flare|horizon|zenith|antumbra|eclipse|mono|poly|mega|quad|oct|risso|minke|bryde|sei|omura|retusa|oxynoe|
+                      |cyerce|aegires|navanax|alpha|beta|gamma)\\b'
+    'captures':
+      '1':
+        'name': 'keyword.control.unit.mindlang'
+      '2':
+        'name': 'ubind.unit.mindlang'
+      '3':
+        'name': 'ubind.unit.mindlang'
+    'name': 'meta.ubind.mindlang'
+  },
+  {
+    'match': '\\b(ucontrol) (idle|stop|move|approach|boost|pathfind|target|targetp|itemDrop|itemTake|payDrop|payTake|mine|flag|build|getBlock|within)\\b'
+    'captures':
+      '1':
+        'name': 'keyword.control.unit.mindlang'
+      '2':
+        'name': 'ucontrol.mindlang'
+    'name': 'meta.ucontrol.mindlang'
+  },
+  {
+    'match': '\\b(ulocate) (ore|building|spawn|damaged) (core|storage|generator|turret|factory|repair|rally|battery|reactor)\\b'
+    'captures':
+      '1':
+        'name': 'keyword.control.unit.mindlang'
+      '2':
+        'name': 'ulocate.mindlang'
+      '3':
+        'name': 'ulocate.building.mindlang'
+    'name': 'meta.ulocate.mindlang'
   },
   {
     'match': '\\b(ubind|ucontrol|uradar|ulocate)\\b'
@@ -47,22 +136,6 @@
   {
     'match': '\\b(noop)\\b'
     'name': 'noop.mindlang'
-  },
-  {
-    'match': '\\b(clear|color|stroke|line|rect|lineRect|poly|linePoly|triangle|image)\\b'
-    'name': 'display.mindlang'
-  },
-  {
-    'match': '\\b(enabled|shoot|shootp|config|color)\\b'
-    'name': 'control.mindlang'
-  },
-  {
-    'match': '\\b(any|enemy|ally|player|attacker|flying|boss|ground)\\b'
-    'name': 'radar.target.mindlang'
-  },
-  {
-    'match': '\\b(distance|health|shield|armor|maxHealth)\\b'
-    'name': 'radar.sort.mindlang'
   },
   {
     'match': '\\B(@)(copper|lead|metaglass|graphite|sand|coal|titanium|thorium|scrap|silicon|plastanium|phase-fabric|
@@ -81,28 +154,6 @@
     'name': 'deprecated.mindlang'
   },
   {
-    'match': '\\b(block|unit|item|liquid)\\b'
-    'name': 'lookup.mindlang'
-  },
-  {
-    'match': '\\B(@)(dagger|mace|fortress|scepter|reign|nova|pulsar|quasar|vela|corvus|crawler|atrax|spiroct|arkyid|toxopid|
-                      |flare|horizon|zenith|antumbra|eclipse|mono|poly|mega|quad|oct|risso|minke|bryde|sei|omura|retusa|oxynoe|
-                      |cyerce|aegires|navanax|alpha|beta|gamma)\\b'
-    'name': 'ubind.unit.mindlang'
-  },
-  {
-    'match': '\\b(idle|stop|move|approach|boost|pathfind|target|targetp|itemDrop|itemTake|payDrop|payTake|mine|flag|build|getBlock|within)\\b'
-    'name': 'ucontrol.mindlang'
-  },
-  {
-    'match': '\\b(ore|building|spawn|damaged)\\b'
-    'name': 'ulocate.mindlang'
-  },
-  {
-    'match': '\\b(core|storage|generator|turret|factory|repair|rally|battery|reactor)\\b'
-    'name': 'ulocate.building.mindlang'
-  },
-  {
     'match': '\\b(true|false)\\b'
     'name': 'keyword.boolean.mindlang'
   },
@@ -111,7 +162,11 @@
     'name': 'ctrl.mindlang'
   },
   {
-    'match': '#.+'
+    'match': '#.*'
     'name': 'comment.mindlang'
+  },
+  {
+    'match': '\\b(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))\\b'
+    'name': 'constant.numeric.mindlang'
   }
 ]
