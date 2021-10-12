@@ -6,6 +6,6 @@
     "atom": ">0.50.0"
   },
   "repository": "https://github.com/Luka108/language-mindlang.git",
-  "license": "EUPL",
+  "license": "MIT",
   "dependencies": {}
 }
