@@ -138,69 +138,69 @@ radar ground any any distance turret1 1 result
 sensor result in what
 
 # Possibili usi
-sensor result block1 @copper            # Se viene indicata una risorsa, restituisce quanto di essa è contenuto nella struttura o unità
-sensor result block1 @lead
-sensor result block1 @metaglass
-sensor result block1 @graphite
-sensor result block1 @sand
-sensor result block1 @coal
-sensor result block1 @titanium
-sensor result block1 @thorium
-sensor result block1 @scrap
-sensor result block1 @silicon
-sensor result block1 @plastanium
-sensor result block1 @phase-fabric
-sensor result block1 @surge-alloy
-sensor result block1 @spore-pod
-sensor result block1 @blast-compound
-sensor result block1 @pyratite
-sensor result block1 @water
-sensor result block1 @slag
-sensor result block1 @oil
-sensor result block1 @cryofluid
-sensor result block1 @totalItems
-sensor result block1 @firstItem
-sensor result block1 @totalLiquids
-sensor result block1 @totalPower
-sensor result block1 @itemCapacity
-sensor result block1 @liquidCapacity
-sensor result block1 @powerCapacity
-sensor result block1 @powerNetStored
-sensor result block1 @powerNetCapacity
-sensor result block1 @powerNetIn
-sensor result block1 @powerNetOut
-sensor result block1 @ammo
-sensor result block1 @ammoCapacity
-sensor result block1 @health
-sensor result block1 @maxHealth
-sensor result block1 @heat
-sensor result block1 @efficiency
-sensor result block1 @progress              # restituisce un valore da 0 a 1, come ad esempio la produzione di risorse, la ricarica di una torretta o la percentuale di costruzione di una struttura
-sensor result block1 @timescale
-sensor result block1 @rotation
-sensor result block1 @x
-sensor result block1 @y
-sensor result block1 @shootX
-sensor result block1 @shootY
-sensor result block1 @size
-sensor result block1 @dead                  # restituisce zero se la struttura o unità non è più disponibile o è morta, 1 altrimenti
-sensor result block1 @range
-sensor result block1 @shooting
-sensor result block1 @boosting
-sensor result block1 @mineX
-sensor result block1 @mineY
-sensor result block1 @mining
-sensor result block1 @team
-sensor result block1 @type                  # restituisce il tipo di struttura o unità (ad esempio per un Distributore restituirà '@router', non una stringa)
-sensor result block1 @flag                  # restituisce il valore numerico del flag di un'unità (vedi 'ucontrol flag')
-sensor result block1 @controlled            # restituisce '@ctrlProcessor' se l'unità è controllata dal Processore, '@ctrlPlayer' se è controllata dal giocatore, '@ctrlFormation' se è in formazione, 0 altrimenti
-sensor result block1 @controller            # se è controllata dal processore restituisce il processore, se è in formazione restituisce il leader, altrimenti restituisce l'unità stessa
-sensor result block1 @commanded             # deprecato, usare '@controlled'
-sensor result block1 @name
-sensor result block1 @payloadCount
-sensor result block1 @payloadType
-sensor result block1 @enabled               # restituisce 1 se il blocco è attivo, 0 altrimenti
-sensor result block1 @config                # restituisce la configurazione, ad esempio per un Distributore (vedi 'control config')
+sensor result block @copper            # Se viene indicata una risorsa, restituisce quanto di essa è contenuto nella struttura o unità
+sensor result block @lead
+sensor result block @metaglass
+sensor result block @graphite
+sensor result block @sand
+sensor result block @coal
+sensor result block @titanium
+sensor result block @thorium
+sensor result block @scrap
+sensor result block @silicon
+sensor result block @plastanium
+sensor result block @phase-fabric
+sensor result block @surge-alloy
+sensor result block @spore-pod
+sensor result block @blast-compound
+sensor result block @pyratite
+sensor result block @water
+sensor result block @slag
+sensor result block @oil
+sensor result block @cryofluid
+sensor result block @totalItems
+sensor result block @firstItem
+sensor result block @totalLiquids
+sensor result block @totalPower
+sensor result block @itemCapacity
+sensor result block @liquidCapacity
+sensor result block @powerCapacity
+sensor result block @powerNetStored
+sensor result block @powerNetCapacity
+sensor result block @powerNetIn
+sensor result block @powerNetOut
+sensor result block @ammo
+sensor result block @ammoCapacity
+sensor result block @health
+sensor result block @maxHealth
+sensor result block @heat
+sensor result block @efficiency
+sensor result block @progress              # restituisce un valore da 0 a 1, come ad esempio la produzione di risorse, la ricarica di una torretta o la percentuale di costruzione di una struttura
+sensor result block @timescale
+sensor result block @rotation
+sensor result block @x
+sensor result block @y
+sensor result block @shootX
+sensor result block @shootY
+sensor result block @size
+sensor result block @dead                  # restituisce zero se la struttura o unità non è più disponibile o è morta, 1 altrimenti
+sensor result block @range
+sensor result block @shooting
+sensor result block @boosting
+sensor result block @mineX
+sensor result block @mineY
+sensor result block @mining
+sensor result block @team
+sensor result block @type                  # restituisce il tipo di struttura o unità (ad esempio per un Distributore restituirà '@router', non una stringa)
+sensor result block @flag                  # restituisce il valore numerico del flag di un'unità (vedi 'ucontrol flag')
+sensor result block @controlled            # restituisce '@ctrlProcessor' se l'unità è controllata dal Processore, '@ctrlPlayer' se è controllata dal giocatore, '@ctrlFormation' se è in formazione, 0 altrimenti
+sensor result block @controller            # se è controllata dal processore restituisce il processore, se è in formazione restituisce il leader, altrimenti restituisce l'unità stessa
+sensor result block @commanded             # deprecato, usare '@controlled'
+sensor result block @name
+sensor result block @payloadCount
+sensor result block @payloadType
+sensor result block @enabled               # restituisce 1 se il blocco è attivo, 0 altrimenti
+sensor result block @config                # restituisce la configurazione, ad esempio per un Distributore (vedi 'control config')
 
 #----------------------------SET------------------------------------------------
 # Imposta il valore di una variabile
